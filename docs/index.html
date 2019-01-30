@@ -1,0 +1,218 @@
+<!doctype html >
+<html lang="en" class="perfect-scrollbar-on">
+<head>
+  <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/assets/js/pace.min.js"></script>
+
+    <script src="https://embed.twitch.tv/embed/v1.js"></script>
+  <title>YoutubeTrends</title>
+  <base href="/TubeTrends/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link href="/assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="/assets/css/black-dashboard.css.map" rel="stylesheet" />
+  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/assets/css/all.css" rel="stylesheet" />
+  <link href="/assets/css/cssfamily.css" rel="stylesheet" />
+  <link href="/assets/css/paceLoader.css" rel="stylesheet" />
+  
+<link rel="stylesheet" href="styles.0e4338761429b4eb16ac.css"></head>
+<body  >
+
+<div id="page">
+
+  <app-root ></app-root>
+
+
+
+
+  <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+      <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;">
+      </div></div><div class="ps__rail-y" style="top: 0px; right: 0px;">
+        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;">
+        </div></div></div>
+      </div>
+      <script type="text/javascript" src="runtime.b57bf819d5bdce77f1c7.js"></script><script type="text/javascript" src="polyfills.05e428c7deb03eca82a1.js"></script><script type="text/javascript" src="scripts.0fd6ffd39f0be0dab8cd.js"></script><script type="text/javascript" src="main.0ab34971802d7e2947dd.js"></script></body>
+
+     
+<!--Scripts TwitchStreamIframe-->  
+<script type="text/javascript">
+  new Twitch.Embed("twitch-embed", {
+    width: "1350",
+    height: "600",
+    channel: "Klumzii",
+    theme:"dark",
+    
+  });
+  
+ 
+
+
+</script>
+
+<script>
+  pace.start();
+  pace.restart();
+  
+function TopScroll(){
+  $("html, body").animate({ scrollTop:0}, "slow");
+}
+ 
+    $(document).ready(function() {
+      $().ready(function() {
+        $sidebar = $('.sidebar');
+        $navbar = $('.navbar');
+
+        $full_page = $('.full-page');
+
+        $sidebar_responsive = $('body > .navbar-collapse');
+        sidebar_mini_active = true;
+        white_color = false;
+
+        window_width = $(window).width();
+
+        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+
+
+        $('.fixed-plugin a').click(function(event) {
+          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+          if ($(this).hasClass('switch-trigger')) {
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            } else if (window.event) {
+              window.event.cancelBubble = true;
+            }
+          }
+        });
+
+        $('.fixed-plugin .background-color span').click(function() {
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
+
+          var new_color = $(this).data('color');
+
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data-color', new_color);
+          }
+
+          if ($navbar.length != 0) {
+            $navbar.attr('data-color', new_color);
+          }
+
+          if ($full_page.length != 0) {
+            $full_page.attr('filter-color', new_color);
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.attr('data-color', new_color);
+          }
+        });
+
+        $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (sidebar_mini_active == true) {
+            $('body').removeClass('sidebar-mini');
+            sidebar_mini_active = false;
+            blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+          } else {
+            $('body').addClass('sidebar-mini');
+            sidebar_mini_active = true;
+            blackDashboard.showSidebarMessage('Sidebar mini activated...');
+          }
+
+          // we simulate the window Resize so the charts will get updated in realtime.
+          var simulateWindowResize = setInterval(function() {
+            window.dispatchEvent(new Event('resize'));
+          }, 180);
+
+          // we stop the simulation of Window Resize after the animations are completed
+          setTimeout(function() {
+            clearInterval(simulateWindowResize);
+          }, 1000);
+        });
+
+        $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (white_color == true) {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').removeClass('white-content');
+            }, 900);
+            white_color = false;
+          } else {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').addClass('white-content');
+            }, 900);
+
+            white_color = true;
+          }
+
+
+        });
+
+        $('.light-badge').click(function() {
+          $('body').addClass('white-content');
+        });
+
+        $('.dark-badge').click(function() {
+          $('body').removeClass('white-content');
+        });
+      });
+    });
+  </script>
+  <script>
+    
+    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
+    function openNav() {
+      if($( "#mySidenav" ).width() != 0) {closeNav();}
+      else{
+        if(screen.width <=500){
+          document.getElementById("mySidenav").style.width = "100%";
+          document.getElementById("page").style.marginRight = "100%";
+        
+        }
+        else{
+          document.getElementById("mySidenav").style.width = "20%";
+          document.getElementById("page").style.marginRight = "20%";
+        }
+     
+      document.body.style.backgroundColor = "white";
+      document.getElementById("mapicon").style.display = "hidden";
+    } 
+    }
+    
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("page").style.marginRight = "0";
+      document.body.style.backgroundColor = "white";
+    }
+   
+
+    </script>
+    <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip(); 
+          $('[data-toggle="tooltip').on('click', function () {
+          $(this).tooltip('hide');
+        $("#DeleteUserModal").modal();
+          });
+        });
+        </script>
+      
+          <script>
+             
+          </script>
+</html>
